@@ -16,7 +16,7 @@ public class QuadTree {
 
     final int CAPACIDAD_MAXIMA = 4;
     int nivel = 0;
-    List<Nodo> nodos;
+    Nodo nodos;
     QuadTree norOeste = null;
     QuadTree norEste = null;
     QuadTree surOeste = null;
@@ -25,7 +25,7 @@ public class QuadTree {
 
     QuadTree(int level, Limite boundry) {
         this.nivel = level;
-        nodos = new ArrayList<Nodo>();
+        nodos = null;
         this.limite = boundry;
     }
 
@@ -39,10 +39,13 @@ public class QuadTree {
                 arbol.nivel, arbol.limite.getxMin(), arbol.limite.getyMin(),
                 arbol.limite.getxMax(), arbol.limite.getyMax());
 
-        for (Nodo node : arbol.nodos) {
-            System.out.printf(" \n\t  x=%d y=%d", node.x, node.y);
+        Nodo node = arbol.nodos;
+
+        while (node != null) {
+            System.out.printf(" \n\t  x=%d y=%d", node.getX(), node.getY());
+            node = node.getLink();
         }
-        if (arbol.nodos.size() == 0) {
+        if (arbol.nodos == null) {
             System.out.printf(" \n\t Nodo hoja");
         }
         dfs(arbol.norOeste);
@@ -54,7 +57,7 @@ public class QuadTree {
 
     /*
      Subidividir el nodo en cuatro regiones más pequeñas
-    */
+     */
     public void subdividir() {
         int compensacionX = this.limite.getxMin()
                 + (this.limite.getxMax() - this.limite.getxMin()) / 2;
@@ -74,17 +77,23 @@ public class QuadTree {
 
     /*
         Insertar un nodo en el árbol
-    */
+     */
     public void insertar(int x, int y, int value) {
         if (!this.limite.enRango(x, y)) {
             return;
         }
 
-        Nodo node = new Nodo(x, y, value);
-        if (nodos.size() < CAPACIDAD_MAXIMA) {
-            nodos.add(node);
+        if (this.nodos == null) {
+            nodos = new Nodo(x, y, value);
             return;
+        } else {
+            Nodo node = new Nodo(x, y, value);
+            if (nodos.getSize() < CAPACIDAD_MAXIMA) {
+                nodos.add(node);
+                return;
+            }
         }
+
         // Si excede la capacidad máxima de nodos, se subdivide en cuatro más
         if (norOeste == null) {
             subdividir();
