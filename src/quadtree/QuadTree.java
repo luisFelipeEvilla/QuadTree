@@ -15,13 +15,13 @@ import java.util.List;
 public class QuadTree {
 
     final int CAPACIDAD_MAXIMA = 4;
-    int nivel = 0;
-    Nodo nodos;
-    QuadTree norOeste = null;
-    QuadTree norEste = null;
-    QuadTree surOeste = null;
-    QuadTree surEste = null;
-    Limite limite;
+    private int nivel = 0;
+    private Nodo nodos;
+    private QuadTree norOeste = null;
+    private QuadTree norEste = null;
+    private QuadTree surOeste = null;
+    private QuadTree surEste = null;
+    private Limite limite;
 
     QuadTree(int level, Limite boundry) {
         this.nivel = level;

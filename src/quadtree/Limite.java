@@ -11,6 +11,24 @@ package quadtree;
  */
 class Limite {
 
+    private int xMin, yMin, xMax, yMax;
+
+    public Limite(int xMin, int yMin, int xMax, int yMax) {
+        super();
+        /*
+        *  Guarda dos puntos bidimensionales
+         */
+        this.xMin = xMin;
+        this.yMin = yMin;
+        this.xMax = xMax;
+        this.yMax = yMax;
+    }
+
+    public boolean enRango(int x, int y) {
+        return (x >= this.getxMin() && x <= this.getxMax()
+                && y >= this.getyMin() && y <= this.getyMax());
+    }
+
     public int getxMin() {
         return xMin;
     }
@@ -26,23 +44,5 @@ class Limite {
     public int getyMax() {
         return yMax;
     }
-
-    public Limite(int xMin, int yMin, int xMax, int yMax) {
-        super();
-        /*
-        *  Guarda dos puntos bidimensionales
-        */
-        this.xMin = xMin;
-        this.yMin = yMin;
-        this.xMax = xMax;
-        this.yMax = yMax;
-    }
-
-    public boolean enRango(int x, int y) {
-        return (x >= this.getxMin() && x <= this.getxMax()
-                && y >= this.getyMin() && y <= this.getyMax());
-    }
-
-    int xMin, yMin, xMax, yMax;
 
 }
